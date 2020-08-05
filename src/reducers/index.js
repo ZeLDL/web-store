@@ -1,4 +1,3 @@
-const { act } = require("react-dom/test-utils");
 
 const initialState = {
     books: []

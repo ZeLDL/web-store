@@ -1,14 +1,14 @@
 import React from 'react';
 import { StoreServicesComsumer } from '../store-services-context';
 
-const wrapStoreServices = (Wrapped) => {
+const wrapStoreServices = () => (Wrapped) => {
     return (props) => {
         return (
             <StoreServicesComsumer>
                 {
-                    (storeServices) => {
+                    (MyStoreServices) => {
                         return ( <Wrapped {...props}
-                            storeServices={storeServices} />);
+                            MyStoreServices={MyStoreServices} />);
                     }
                 }
             </StoreServicesComsumer>

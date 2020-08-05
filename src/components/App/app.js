@@ -1,8 +1,10 @@
 import React from 'react';
 import './app.css';
+import {wrapStoreServices} from '../hoc';
 
-const App = () => {
+const App = ({MyStoreServices}) => {
+    console.log(MyStoreServices.getBooks());
     return <div> App </div>;
 };
 
-export default App;
+export default wrapStoreServices()(App);
