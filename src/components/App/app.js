@@ -1,10 +1,27 @@
 import React from 'react';
-import './app.css';
-import {wrapStoreServices} from '../hoc';
+import { Route, Switch } from 'react-router-dom';
+import ShopHeader from '../shop-header';
+import { HomePage, CartPage } from '../pages';
 
-const App = ({MyStoreServices}) => {
-    console.log(MyStoreServices.getBooks());
-    return <div> App </div>;
+import './app.css';
+
+const App = () => {
+  return (
+    <main role="main" className="container">
+      <ShopHeader numItems={5} total={210}/>
+      <Switch>
+        <Route
+          path="/"
+          component={HomePage}
+          exact />
+
+        <Route
+          path="/cart"
+          component={CartPage}
+          />
+      </Switch>
+    </main>
+  );
 };
 
-export default wrapStoreServices()(App);
+export default App;

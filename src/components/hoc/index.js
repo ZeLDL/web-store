@@ -1,3 +1,5 @@
-import wrapStoreServices from './wrap-store-services';
+import withBookstoreService from './with-bookstore-service';
 
-export {wrapStoreServices};
+export {
+  withBookstoreService
+};
