@@ -1,14 +1,14 @@
 
-const booksLoaded = (newBooks) => {
+const booksRequested = () => {
   return {
-    type: 'FETCH_BOOKS_SUCCES',
-    payload: newBooks
-  };
+    type: 'FETCH_BOOKS_REQUEST'
+  }
 };
 
-const booksRequested = (newBooks) => {
+const booksLoaded = (newBooks) => {
   return {
-    type: 'FETCH_BOOKS_REQUESTED'
+    type: 'FETCH_BOOKS_SUCCESS',
+    payload: newBooks
   };
 };
 
@@ -26,16 +26,16 @@ export const bookAddedToCart = (bookId) => {
   };
 };
 
-export const bookRemoveFromCart = (bookId) => {
+export const bookRemovedFromCart = (bookId) => {
   return {
-    type: 'BOOK_REMOVE_FROM_CART',
+    type: 'BOOK_REMOVED_FROM_CART',
     payload: bookId
   };
 };
 
-export const allbookRemoveFromCart = (bookId) => {
+export const allBooksRemovedFromCart = (bookId) => {
   return {
-    type: 'ALL_BOOK_REMOVE_FROM_CART',
+    type: 'ALL_BOOKS_REMOVED_FROM_CART',
     payload: bookId
   };
 };
@@ -43,9 +43,9 @@ export const allbookRemoveFromCart = (bookId) => {
 const fetchBooks = (bookstoreService, dispatch) => () => {
   dispatch(booksRequested());
   bookstoreService.getBooks()
-                .then((data) => dispatch(booksLoaded(data)))
-                .catch((error) => dispatch(booksError(error)));
-}
+    .then((data) => dispatch(booksLoaded(data)))
+    .catch((err) => dispatch(booksError(err)));
+};
 
 export {
   fetchBooks
