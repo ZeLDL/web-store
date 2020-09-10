@@ -1,30 +1,39 @@
 
 export default class BookstoreService {
 
-  data = [
-    {
-      id: 1,
-      title: 'Production-Ready Microservices',
-      author: 'Susan J. Fowler',
-      price: 32,
-      coverImage: 'https://images-na.ssl-images-amazon.com/images/I/41yJ75gpV-L._SX381_BO1,204,203,200_.jpg'},
-    {
-      id: 2,
-      title: 'Release It!',
-      author: 'Michael T. Nygard',
-      price: 45,
-      coverImage: 'https://images-na.ssl-images-amazon.com/images/I/414CRjLjwgL._SX403_BO1,204,203,200_.jpg'}
-  ];
+  _apiBase = 'http://localhost:3000';
 
-  getBooks() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (Math.random() > 0.75) {
-          reject(new Error('Something bad happened'));
-        } else {
-          resolve(this.data);
-        }
-      }, 700);
-    });
-  }
+  getResource = async (url) => {
+    const res = await fetch(`${this._apiBase}${url}`);
+
+    if (!res.ok) {
+      throw new Error(`Could not fetch ${url}` +
+        `, received ${res.status}`)
+    }
+    return await res.json();
+  };
+
+  getAllBooks = async () => {
+    return await this.getResource(`/data`);
+  };
+
+  // getBooks = async (id) => {
+  //   const book = await this.getResource(`/data/${id}`);
+  //   return this._transformBooks(book);
+  // };
+
+  _extractId = (item) => {
+    const idRegExp = /\/([0-9]*)\/$/;
+    return item.url.match(idRegExp)[1];
+  };
+
+  _transformBooks = (data) => {
+    return {
+      id: this._extractId(data),
+      title: data.title,
+      author: data.author,
+      price: data.price,
+      coverImage: data.coverImage
+    };
+  };
 }

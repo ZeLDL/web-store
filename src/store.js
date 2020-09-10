@@ -16,9 +16,13 @@ const stringMiddleWare = () => (dispatch) => (action) => {
         });
     }
 
-    return dispatch(action)
+    return dispatch(action);
 };
 
-const store = createStore(reducer, applyMiddleware(thunkMiddleware, stringMiddleWare, logMiddleWare));
+const store = createStore(reducer, applyMiddleware(
+    thunkMiddleware, 
+    stringMiddleWare, 
+    logMiddleWare
+    ));
 
 export default store;
